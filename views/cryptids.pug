@@ -1,0 +1,17 @@
+//- ** This is a sample of a pug template and how it uses the data passed to it from index.js.
+
+doctype html
+html 
+    head 
+        title= `${title}`
+        meta(name="viewport" content="width=device-width, initial-scale=1")
+        link(rel="stylesheet", href="/css/style.css")
+    body    
+        h1 Cryptids
+        .cards 
+            each cryptid in data
+                .card 
+                    h2.card__name #{cryptid.properties.name}
+                    p.card__email First sighting: #{cryptid.properties.first_sighting}
+                    p.card__email Habitat: #{cryptid.properties.habitat}
+                    p.card__email Size: #{cryptid.properties.size_string}
