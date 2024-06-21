@@ -8,10 +8,19 @@ html
         link(rel="stylesheet", href="/css/style.css")
     body    
         h1 Cryptids
-        .cards 
-            each cryptid in data
-                .card 
-                    h2.card__name #{cryptid.properties.name}
-                    p.card__email #[strong First sighting]: #{cryptid.properties.first_sighting}
-                    p.card__email #[strong Habitat]: #{cryptid.properties.habitat}
-                    p.card__email #[strong Size]: #{cryptid.properties.size_string}
+        table
+            thead
+                tr
+                    th Name
+                    th First Sighting
+                    th Habitat
+                    th Size
+            tbody
+                each cryptid in data
+                    tr(id=`cryptid-${cryptid.properties.hs_object_id}`)
+                        td= cryptid.properties.name
+                        td= cryptid.properties.first_sighting
+                        td= cryptid.properties.habitat
+                        td= cryptid.properties.size_string
+        div
+            a(href="/update-cobj") Add to this table

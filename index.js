@@ -16,7 +16,13 @@ const CRYPTID_OBJECT_ID = "2-31411719";
 
 app.get("/", async (req, res) => {
   const customObjectsEndpoint = `https://api.hubspot.com/crm/v3/objects/${CRYPTID_OBJECT_ID}`;
-  const properties = ["name", "first_sighting", "habitat", "size_string"];
+  const properties = [
+    "name",
+    "first_sighting",
+    "habitat",
+    "size_string",
+    "hs_object_id",
+  ];
 
   const headers = {
     Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
@@ -26,7 +32,7 @@ app.get("/", async (req, res) => {
   try {
     const resp = await axios.get(customObjectsEndpoint, {
       headers,
-      params: { properties: properties.join(",") },
+      params: { properties: properties.join(","), limit: 100 },
     });
     const data = resp.data.results;
     res.render("homepage", { title: "Cryptids | HubSpot APIs", data });
@@ -40,29 +46,32 @@ app.get("/", async (req, res) => {
 app.get("/update-cobj", async (req, res) => {
   res.render("update", {
     title: "Update Custom Object Form | Integrating With HubSpot I Practicum",
-    data,
   });
 });
 
 // TODO: ROUTE 3 - Create a new app.post route for the custom objects form to create or update your custom object data. Once executed, redirect the user to the homepage.
 
 app.post("/update-cobj", async (req, res) => {
+  console.log(req.body);
   const update = {
     properties: {
-      favorite_book: req.body.newVal,
+      name: req.body.name,
+      first_sighting: req.body.first_sighting,
+      habitat: req.body.habitat,
+      size_string: req.body.size_string,
     },
   };
 
-  const email = req.query.email;
-  const updateContact = `https://api.hubapi.com/crm/v3/objects/${CRYPTID_OBJECT_ID}/${email}?idProperty=email`;
+  // const customObjectId = req.query.hs_object_id;
+  const updateCryptid = `https://api.hubapi.com/crm/v3/objects/${CRYPTID_OBJECT_ID}`;
   const headers = {
     Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
     "Content-Type": "application/json",
   };
 
   try {
-    await axios.patch(updateContact, update, { headers });
-    res.redirect("back");
+    await axios.post(updateCryptid, update, { headers });
+    res.redirect("/");
   } catch (err) {
     console.error(err);
   }
