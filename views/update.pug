@@ -1,0 +1,24 @@
+doctype html
+html 
+    head 
+        title= `${title}`
+        meta(name="viewport" content="width=device-width, initial-scale=1")
+        link(rel="stylesheet", href="/css/style.css")
+    body
+        form(action="/update-cobj" method="POST" onsubmit="console.log('Form submitted')")
+            label(for="name") Name:
+            input(type="text" id="name" name="name" required)
+
+            label(for="first_sighting") First Sighting:
+            input(type="text" id="first_sighting" name="first_sighting" required pattern="^[0-9]{1,4}$" title="Please enter a 1 to 4 digit year")
+
+            label(for="habitat") Habitat:
+            input(type="text" id="habitat" name="habitat" required)
+
+            label(for="size_string") Size:
+            input(type="text" id="size_string" name="size_string" required)
+
+            button(type="submit") Submit
+
+        div
+            a(href="/") Return to homepage

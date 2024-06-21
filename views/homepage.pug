@@ -1,0 +1,26 @@
+//- ** This is a sample of a pug template and how it uses the data passed to it from index.js.
+
+doctype html
+html 
+    head 
+        title= `${title}`
+        meta(name="viewport" content="width=device-width, initial-scale=1")
+        link(rel="stylesheet", href="/css/style.css")
+    body    
+        h1 Cryptids
+        table
+            thead
+                tr
+                    th Name
+                    th First Sighting
+                    th Habitat
+                    th Size
+            tbody
+                each cryptid in data
+                    tr(id=`cryptid-${cryptid.properties.hs_object_id}`)
+                        td= cryptid.properties.name
+                        td= cryptid.properties.first_sighting
+                        td= cryptid.properties.habitat
+                        td= cryptid.properties.size_string
+        div
+            a(href="/update-cobj") Add to this table
