@@ -8,9 +8,18 @@ html
         link(rel="stylesheet", href="/css/style.css")
     body
         a(href="/") Return to homepage
-        //- h1 Contacts
-        //- .cards 
-        //-     each contact in data
-        //-         .card 
-        //-             h2.card__name #{contact.properties.firstname}  #{contact.properties.lastname}
-        //-             p.card__email #{contact.properties.email}
+
+        form(action="/submit" method="POST")
+        label(for="name") Name:
+        input(type="text" id="name" name="name" required)
+
+        label(for="first_sighting") First Sighting:
+        input(type="text" id="first_sighting" name="first_sighting" required)
+
+        label(for="habitat") Habitat:
+        input(type="text" id="habitat" name="habitat" required)
+
+        label(for="size_string") Size:
+        input(type="text" id="size_string" name="size_string" required)
+
+        button(type="submit") Submit
